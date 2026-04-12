@@ -1,4 +1,4 @@
-# experiments/ab_test.py — Simulación de A/B test y validación de balance
+
 
 import random
 from typing import Callable, List
@@ -17,11 +17,6 @@ def registrar_ventas_real(
     catalogo: pd.DataFrame,
     np_rng: np.random.RandomState = None,
 ) -> float:
-    """
-    Simula unidades vendidas usando elasticidad real por categoría.
-    `catalogo` debe tener product_id como índice.
-    `np_rng` permite reproducibilidad; si es None usa el estado global.
-    """
     producto       = catalogo.loc[product_id]
     cat            = producto['product_category']
     elasticidad    = REAL_ELASTICITY_BY_CATEGORY.get(cat, GLOBAL_ELASTICITY)
@@ -87,4 +82,4 @@ def validate_ab_balance(ab_results: pd.DataFrame, min_obs: int = 10) -> None:
         print(f"\n Categorías con menos de {min_obs} observaciones:")
         print(problemas.to_string(index=False))
     else:
-        print(f"\n✓ Balance correcto (≥{min_obs} obs por nivel)")
+        print(f"\n Balance correcto (≥{min_obs} obs por nivel)")
