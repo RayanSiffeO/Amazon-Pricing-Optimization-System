@@ -14,8 +14,8 @@ library(patchwork)  # combinar ggplots
 
 # ── 0. CONFIGURACIÓN GLOBAL ───────────────────────────────────────────────────
 
-DATA_PATH         <- "C:/Users/RAYANs/Desktop/proyecto/pricing_clean/src/data/results/ab_results.csv"
-OUTPUT_DIR        <- "C:/Users/RAYANs/Desktop/proyecto/pricing_clean/src/data/results/"
+DATA_PATH         <- "results/ab_results.csv"
+OUTPUT_DIR        <- "data/results/"
 
 GLOBAL_ELASTICITY  <- -1.2   # prior econométrico
 SHRINKAGE_BASE     <- 150    # fuerza máxima del shrinkage (categorías sin señal)
