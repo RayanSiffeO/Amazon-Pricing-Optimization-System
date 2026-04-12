@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 
-DATA_PATH = "C:/Users/RAYANs/Desktop/Modelos predictivos/Datasets/amazon_products_sales_data_cleaned.csv"
+DATA_PATH = "amazon_products_sales_data_cleaned.csv"
 
 # ── Features ─────────────────────────────────────────────────────────────────
 NUM_FEATURES = [
