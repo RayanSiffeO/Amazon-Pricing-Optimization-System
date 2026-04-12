@@ -12,7 +12,7 @@ from sklearn.metrics import confusion_matrix, mean_squared_error, r2_score
 # ── Plots A/B test ────────────────────────────────────────────────────────────
 
 def plot_ab_response(ab_results: pd.DataFrame) -> None:
-    """Curva de respuesta de ventas al descuento por categoría."""
+
     agg = (
         ab_results
         .groupby(['product_category', 'discount_applied'])['units_sold']
@@ -33,7 +33,7 @@ def plot_ab_response(ab_results: pd.DataFrame) -> None:
 # ── Plots elasticidad ─────────────────────────────────────────────────────────
 
 def plot_elasticity_bar(elasticity_map: Dict[str, float]) -> None:
-    """Bar chart de elasticidad por categoría con línea de elasticidad unitaria."""
+
     cats = list(elasticity_map.keys())
     vals = list(elasticity_map.values())
     plt.figure(figsize=(10, 5))
@@ -54,7 +54,7 @@ def plot_results(
     y_pred: np.ndarray,
     df_work: pd.DataFrame,
 ) -> None:
-    """Residuals, confusion matrix por rango de descuento y distribución de revenue."""
+
 
     # Residuals
     plt.figure(figsize=(10, 5))
