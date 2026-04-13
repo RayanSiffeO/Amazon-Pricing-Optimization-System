@@ -1,3 +1,5 @@
+In experimental stage!!!
+
 # Pricing Optimization System — Causal Inference + ML + ILP
 
 End-to-end system to estimate price elasticity and optimize discount allocation under budget constraints, applied to an Amazon product catalogue.
