@@ -6,7 +6,7 @@ End-to-end system to estimate price elasticity and optimize discount allocation 
 
 ---
 
-## In 30 Seconds
+## RESUME
 
 1. Simulate a multi-arm A/B pricing experiment (5 discount levels)
 2. Estimate price elasticity per category using causal regression + Bayesian shrinkage
