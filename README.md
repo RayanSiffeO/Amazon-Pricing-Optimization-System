@@ -32,7 +32,7 @@ End-to-end system to estimate price elasticity and optimize discount allocation 
 | **Revenue uplift (backtest)** | **+61.2%** |
 | Analytic upside per-product (test set) | +$115,776,137 |
 
-> ⚠️ The 61% uplift is measured in a simulated market using elasticities derived from a simulated A/B test. It represents an upper bound. Realistic uplift in production, accounting for demand noise, competitor adaptation, and cross-product substitution, is estimated at **+12% to +18%**.
+> The 61% uplift is measured in a simulated market using elasticities derived from a simulated A/B test. It represents an upper bound. Realistic uplift in production, accounting for demand noise, competitor adaptation, and cross-product substitution, is estimated at **+12% to +18%**.
 
 ---
 
