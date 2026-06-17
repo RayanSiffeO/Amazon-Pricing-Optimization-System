@@ -42,7 +42,6 @@ def load_models(
     booster = xgb.Booster()
     booster.load_model(os.path.join(output_dir, f'xgb_elasticity_{ts}.json'))
 
-    with open(os.path.join(output_dir, f'feature_meta_{ts}.json')) as f:
-        meta = json.load(f)
+    with open(os.path.join(output_dir, f'feature_meta_{ts}.json')) as f: meta = json.load(f)
 
     return pipe, booster, meta['feature_names'], meta['ohe_columns']

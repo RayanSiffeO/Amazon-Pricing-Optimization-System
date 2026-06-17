@@ -77,50 +77,31 @@ def train_elasticity_model(
 
 
 
-def predict_logq_batch(
-    model: xgb.Booster,
-    feature_names: List[str],
-    ohe_columns: List[str],
-    catalog_df: pd.DataFrame,
-    discount_values: List[float],
-) -> Dict[float, np.ndarray]:
-
-    n_products = len(catalog_df)
-    rows: List[dict] = []
-
+def predict_logq_batch(model, feature_names, ohe_columns, catalog_df, discount_values):
+    frames = []
     for d in discount_values:
-        for idx in range(n_products):
-            prod = catalog_df.iloc[idx]
-            row  = {'discount_applied': d}
-            for f in NUM_FEATURES:
-                val        = prod[f]
-                row[f]     = val
-                row[f'disc_x_{f}'] = d * val
-            for c in CAT_FEATURES:
-                row[c] = str(prod[c])
-            rows.append(row)
+        chunk = catalog_df[NUM_FEATURES + CAT_FEATURES].copy()
+        chunk['discount_applied'] = d
+        for f in NUM_FEATURES:
+            chunk[f'disc_x_{f}'] = d * chunk[f]
+        frames.append(chunk)
 
-    X_df = pd.DataFrame(rows)
-
-
+    X_df = pd.concat(frames, ignore_index=True)
+    
     cat_dummies = pd.get_dummies(
         X_df[CAT_FEATURES].astype(str),
         prefix=CAT_FEATURES,
         drop_first=True,
     )
     base_cols = ['discount_applied'] + NUM_FEATURES + [f'disc_x_{f}' for f in NUM_FEATURES]
-    X_full    = pd.concat([X_df[base_cols].reset_index(drop=True),
-                            cat_dummies.reset_index(drop=True)], axis=1)
-
-
+    X_full = pd.concat([X_df[base_cols].reset_index(drop=True),
+                        cat_dummies.reset_index(drop=True)], axis=1)
     X_full = X_full.reindex(columns=feature_names, fill_value=0)
-    preds  = model.predict(xgb.DMatrix(X_full))
-
-    result: Dict[float, np.ndarray] = {}
-    for i, d in enumerate(discount_values):
-        result[d] = preds[i * n_products: (i + 1) * n_products]
-
-    return result
+    
+    preds = model.predict(xgb.DMatrix(X_full))
+    
+    n = len(catalog_df)
+    return {d: preds[i*n:(i+1)*n] for i, d in enumerate(discount_values)}
 
 
 
@@ -130,7 +111,7 @@ def estimate_elasticities_batch(
     model: xgb.Booster,
     feature_names: List[str],
     ohe_columns: List[str],
-    delta: float = 1.0,
+    delta: float = 5.0,
 ) -> np.ndarray:
 
     df = df_catalog.reset_index(drop=True).copy()

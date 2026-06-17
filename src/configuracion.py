@@ -2,8 +2,11 @@
 
 import os
 from pathlib import Path
+import pandas as pd
 
-DATA_PATH = "amazon_products_sales_data_cleaned.csv"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_DIR, "src", "data", "raw", "amazon_products_sales_data_cleaned.csv")
 
 # ── Features ─────────────────────────────────────────────────────────────────
 NUM_FEATURES = [
@@ -20,13 +23,13 @@ MIN_PRICE_RATIO = 0.5
 DISCOUNT_GRID   = list(range(0, 71, 5)) 
 
 
-DISCOUNT_LEVELS = [0, 5, 10, 15, 20]
+DISCOUNT_LEVELS = [0, 5, 10, 15, 20, 30, 40]
 AB_TEST_SIZE    = 0.2
 
 MIN_OBS_PER_CATEGORY = 30
 GLOBAL_ELASTICITY    = -1.2
-SHRINKAGE_STRENGTH      = 150  
-MIN_R2_FOR_ELASTICITY   = 0.05  
+SHRINKAGE_STRENGTH      = 50  
+MIN_R2_FOR_ELASTICITY   = 0.15 
 
 REAL_ELASTICITY_BY_CATEGORY = {
     'Electronics': -1.8,
