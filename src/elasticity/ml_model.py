@@ -57,21 +57,24 @@ def train_elasticity_model(
     dval   = xgb.DMatrix(X_val, label=y_val)
 
     params = {
-        'objective':       'reg:squarederror',
-        'eta':             0.05,
-        'max_depth':       6,
-        'subsample':       0.8,
+        'objective': 'reg:squarederror',
+        'learning_rate': 0.05,
+        'max_depth': 4,
+        'subsample': 0.8,
         'colsample_bytree': 0.6,
-        'seed':            42,
-        'nthread': 1,         
+        'reg_lambda': 8,
+        'reg_alpha': 1,
         'tree_method': 'hist',
+        'seed': 42,
+        'nthread': -1,
     }
     booster = xgb.train(
         params, dtrain,
-        num_boost_round=1000,
+        num_boost_round = 5000,
+        early_stopping_rounds = 100,
         evals=[(dtrain, 'train'), (dval, 'val')],
-        early_stopping_rounds=50,
         verbose_eval=False,
+        
     )
     return booster, feature_names, ohe_columns
 
